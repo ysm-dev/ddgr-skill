@@ -4,7 +4,7 @@ description: Search the web using DuckDuckGo via the ddgr CLI tool. Use when the
 license: MIT
 metadata:
   author: ysm-dev
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # ddgr Web Search
@@ -25,10 +25,11 @@ ddgr must be installed: `brew install ddgr` or `pip install ddgr`
 ## Basic Usage
 
 ```bash
-ddgr --np --json "search query"
+ddgr --noua --np --json "search query"
 ```
 
-**Required flags for non-interactive use:**
+**Required flags:**
+- `--noua`: Disable user agent (always use this)
 - `--np` (noprompt): Exit after showing results, no interactive prompt
 - `--json`: Output in JSON format for parsing (implies --np)
 
@@ -52,11 +53,11 @@ ddgr --np --json "search query"
 Bangs redirect searches to other sites. Escape `!` in bash/zsh:
 
 ```bash
-ddgr --np \!w "search term"      # Wikipedia
-ddgr --np \!so "python error"    # StackOverflow  
-ddgr --np \!gh "repo name"       # GitHub
-ddgr --np \!yt "video topic"     # YouTube
-ddgr --np \!a "product"          # Amazon
+ddgr --noua --np \!w "search term"      # Wikipedia
+ddgr --noua --np \!so "python error"    # StackOverflow  
+ddgr --noua --np \!gh "repo name"       # GitHub
+ddgr --noua --np \!yt "video topic"     # YouTube
+ddgr --noua --np \!a "product"          # Amazon
 ```
 
 Full bang list: https://duckduckgo.com/bang
@@ -64,40 +65,40 @@ Full bang list: https://duckduckgo.com/bang
 ## Search Keywords
 
 ```bash
-ddgr --np --json "filetype:pdf annual report"
-ddgr --np --json "site:reddit.com python tips"
+ddgr --noua --np --json "filetype:pdf annual report"
+ddgr --noua --np --json "site:reddit.com python tips"
 ```
 
 ## Examples
 
 **Basic search:**
 ```bash
-ddgr --np --json "python asyncio tutorial"
+ddgr --noua --np --json "python asyncio tutorial"
 ```
 
 **Recent results (last week):**
 ```bash
-ddgr --np --json -t w "latest news topic"
+ddgr --noua --np --json -t w "latest news topic"
 ```
 
 **Site-specific search:**
 ```bash
-ddgr --np --json -w stackoverflow.com "parse JSON"
+ddgr --noua --np --json -w stackoverflow.com "parse JSON"
 ```
 
 **Region-specific (India, English):**
 ```bash
-ddgr --np --json -r in-en "IPL cricket"
+ddgr --noua --np --json -r in-en "IPL cricket"
 ```
 
 **Instant answer:**
 ```bash
-ddgr --np -i "weather new york"
+ddgr --noua --np -i "weather new york"
 ```
 
 **Limit to 5 results:**
 ```bash
-ddgr --np --json -n 5 "quick query"
+ddgr --noua --np --json -n 5 "quick query"
 ```
 
 ## JSON Output Structure
@@ -109,6 +110,6 @@ Each result contains:
 
 Parse with `jq`:
 ```bash
-ddgr --np --json "query" | jq '.[].title'
-ddgr --np --json "query" | jq -r '.[0].url'  # First result URL
+ddgr --noua --np --json "query" | jq '.[].title'
+ddgr --noua --np --json "query" | jq -r '.[0].url'  # First result URL
 ```
